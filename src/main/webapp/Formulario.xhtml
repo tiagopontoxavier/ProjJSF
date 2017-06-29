@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<h:body>
+	<ui:composition template="common/commonLayout.xhtml">
+		<ui:define name="content">
+	<h:form>
+    <p:panel header="Inserir Produto">
+    
+         <h:panelGrid columns="4" cellpadding="5"> 
+         
+            <h:outputLabel for="name" value="Nome:" />
+            <p:inputText id="name" value="#{productBean.newProduct.name}" label="name"/>
+            <p:message for="name" />
+            <h:outputText value="#{listProduct.name}" />
+ 
+            <h:outputLabel for="Iva" value="Iva:" />
+            <p:inputText id="Iva" value="#{beanValidationView.age}" label="Age"/>
+            <p:message for="Iva" />
+            <h:outputText value="#{beanValidationView.age}" /> 
+ 
+            <h:outputLabel for="amount" value="Preco" />
+            <p:inputText id="amount" value="#{beanValidationView.amount}" label="Amount"/>
+            <p:message for="amount" />
+            <h:outputText value="#{beanValidationView.amount}" />
+ 
+ 			
+            <h:outputLabel for="amount2" value="Desconto:" />
+            <p:inputText id="amount2" value="#{beanValidationView.amount2}" label="Amount 2"/>
+            <p:message for="amount2" />
+            <h:outputText value="#{beanValidationView.amount2}" />
+            <br/>
+        </h:panelGrid>
+ 
+        <p:commandButton value="Adicionar" ajax="false" icon="ui-icon-check" validateClient="true" 
+        update=":form:tabs:addProductDetail" oncomplete="PF('productAdd').show()" />  
+    
+<p:panel widgetVar="panelwv" visible="false" closable="true" toggleable="true"/>
+        
+        <p:commandButton value="Editar" ajax="false" icon="ui-icon-check" validateClient="true"/>
+         <p:commandButton value="Remover" ajax="false" icon="ui-icon-check" validateClient="true"/>
+    </p:panel>
+    
+<!--------------------------------------------- TABLE Products ---------------------------------------------------------->
+    
+    <p:dataTable id="ProductList" var="listProduct"
+							value="#{ProductBean.getProducts()}" selectionMode="single"
+							selection="#{ProductBean.selectedProduct}"
+							rowKey="#{listProduct.id}" draggableColumns="true">
+
+					<f:facet name="{Exporters}">
+						<h:commandLink>
+							<p:graphicImage name="/demo/images/excel.png" width="24" />
+							<p:dataExporter type="xls" target="tbl" fileName="cars" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage name="/demo/images/pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="tbl" fileName="cars" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage name="/demo/images/csv.png" width="24" />
+							<p:dataExporter type="csv" target="tbl" fileName="cars" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage name="/demo/images/xml.png" width="24" />
+							<p:dataExporter type="xml" target="tbl" fileName="cars" />
+						</h:commandLink>
+					</f:facet>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Id" />
+						</f:facet>
+						<h:outputText value="#{Product.name}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{beanValidationView.name}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Desconto" />
+						</f:facet>
+						<h:outputText value="#{beanValidationView.Iva}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Iva" />
+						</f:facet>
+						<h:outputText value="#{car.color}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Preco" />
+						</f:facet>
+						<h:outputText value="#{car.color}" />
+					</p:column>
+				</p:dataTable>
+    
+</h:form>
+</ui:define>
+</ui:composition>
+</h:body>
+	
+</html>
